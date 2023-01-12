@@ -10,7 +10,7 @@ class Homepage extends StatelessWidget {
     int days = 7;
     return Scaffold(
       appBar: AppBar(
-        title: Text("FORM-1"),
+        title: Text("DEMO APK"),
       ),
       body: Center(
         child: Text("Welcome to my first $days days in flutter"),
