@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
+// ignore_for_file: prefer_const_constructors, unused_local_variable, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,30 +24,39 @@ class _HomepageState extends State<Homepage> {
   }
 
   loadData() async {
-    var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
-    var decodedData = jsonDecode(catalogJson);
+    await Future.delayed(Duration(seconds: 2));
+    final catalogJson =
+        await rootBundle.loadString("assets/files/catalog.json");
+    final decodedData = jsonDecode(catalogJson);
     var productData = decodedData["products"];
-    // ignore: avoid_print
-    print(productData);
+    CatalogueModel.items =
+        List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final dummyList = List.generate(20, ((index) => CatalogueModel.items[0]));
     return Scaffold(
-        appBar: AppBar(
-          title: Text("DEMO APK"),
-        ),
-        body: ListView.builder(
-          itemCount: dummyList.length,
-          itemBuilder: (context, index) {
-            return ItemWidget(
-              item: dummyList[index],
-            );
-          },
-        ));
+      appBar: AppBar(
+        title: Text("DEMO APK"),
+      ),
+      body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child:
+              (CatalogueModel.items != null && CatalogueModel.items.isNotEmpty)
+                  ? ListView.builder(
+                      itemCount: CatalogueModel.items.length,
+                      itemBuilder: (context, index) {
+                        return ItemWidget(
+                          item: CatalogueModel.items[index],
+                        );
+                      },
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    )),
+      drawer: MyDrawer(),
+    );
     // ignore: unused_label, dead_code
-    drawer:
-    MyDrawer();
   }
 }
