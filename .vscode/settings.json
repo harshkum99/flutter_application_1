@@ -1,0 +1,11 @@
+{
+    "dart.lineLength": 0,
+    "editor.rulers": [
+    
+    
+    ],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#00000000"//transparent
+    },
+    "diffEditor.codeLens": true
+}
