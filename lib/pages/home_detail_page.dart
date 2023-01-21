@@ -20,8 +20,20 @@ class HomeDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Image.network(catalog.image).py32().pOnly(left: 28),
-            Text(catalog.name).py8().pOnly(left: 28),
-            Text(catalog.desc).pOnly(left: 28)
+            catalog.name.text.make().centered(),
+            HeightBox(15),
+            catalog.desc.text.make().centered(),
+            HeightBox(10),
+            "\$${catalog.price}".text.bold.lg.make().centered(),
+            HeightBox(30),
+            Row(children: [
+              SizedBox(
+                height: 60,
+                width: 200,
+                child: ElevatedButton(onPressed: (() {}), child: "WISHLIST".text.make()).pOnly(left: 25).pOnly(right: 20),
+              ),
+              SizedBox(height: 60, width: 170, child: ElevatedButton(onPressed: (() {}), child: "BUY NOW".text.make()).pOnly(left: 5))
+            ])
           ],
         ),
       ),
